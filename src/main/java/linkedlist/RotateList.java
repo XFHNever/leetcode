@@ -5,11 +5,19 @@ package linkedlist;
  */
 public class RotateList {
     public ListNode rotateRight(ListNode head, int n) {
-        if (n<=0)
-             return head;
-
-        if (head == null || head.next == null)
+        if (n<=0 || head == null || head.next == null)
             return head;
+
+        int length = 0;
+        ListNode temp = head;
+        while (temp != null){
+            length++;
+            temp = temp.next;
+        }
+        n = n % length;
+        if (n == length) {
+            return head;
+        }
 
         ListNode slow = head, fast = head;
         while (fast != null && n>0) {
@@ -22,14 +30,9 @@ public class RotateList {
             fast = fast.next;
         }
 
-        if (slow != head) {
-            fast.next = head;
-            ListNode newHead = slow.next;
-            slow.next = null;
-            return newHead;
-        } else {
-            return head;
-        }
-
+        fast.next = head;
+        ListNode newHead = slow.next;
+        slow.next = null;
+        return newHead;
     }
 }
