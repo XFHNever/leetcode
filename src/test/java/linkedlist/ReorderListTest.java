@@ -16,7 +16,7 @@ public class ReorderListTest {
         l1.next.next.next = new ListNode(4);
         l1.next.next.next.next = new ListNode(5);
         ReorderList reorderList = new ReorderList();
-        ListNode result = reorderList.reorder(l1);
+        ListNode result = reorderList.reorder2(l1);
         assertEquals(1, result.val);
         assertEquals(5, result.next.val);
         assertEquals(2, result.next.next.val);
