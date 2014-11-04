@@ -18,4 +18,13 @@ public class MaxPointsTest {
         MaxPoints maxPoints = new MaxPoints();
         assertEquals(4, maxPoints.maxPoints(points));
     }
+    @Test
+    public void test2() {
+        Point point1 = new Point(1,2);
+        Point point2 = new Point(2,2);
+        Point point3 = new Point(-3,2);
+        Point[] points = {point1, point2, point3};
+        MaxPoints maxPoints = new MaxPoints();
+        assertEquals(3, maxPoints.maxPoints(points));
+    }
 }
