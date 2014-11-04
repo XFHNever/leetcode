@@ -19,59 +19,47 @@ public class MaxPoints {
             return length;
 
         HashMap<Double, Integer> map = new HashMap<Double, Integer>();
-        HashMap<Integer, Integer> map2 = new HashMap<Integer, Integer>();
-
         int result = 0;
-        double k = 0;
-        int sum = 0;
-        boolean isCac1, isCac2;
+        int samePoint = 0;
 
-        for (int i=1; i< length; i++) {
-            isCac1 = false;
-            isCac2 = false;
-            for (int j=i-1; j>=0; j--) {
-               if (points[i].x == points[j].x && !isCac1) {
-                   if (map2.get(points[i].x) == null) {
-                       map2.put(points[i].x, 2);
-                   } else {
-                       sum = map2.get(points[i].x);
-                       map2.remove(points[i].x);
-                       map2.put(points[i].x, sum+1);
-                       isCac1 = true;
-                   }
-               } else {
-                    if (!isCac2) {
-                        k = (points[i].y - points[j].y)/(1.0*(points[i].x-points[j].x));
-                        if (map.get(k) == null) {
-                            map.put(k, 2);
-                        } else {
-                            sum = map.get(k);
-                            map.remove(k);
-                            map.put(k, sum+1);
-                            isCac2 = true;
-                        }
-                    }
-               }
+        for (int i=0; i<length; i++) {
+            map.clear();
+            samePoint = 0;
+            for (int j=0; j<length; j++) {
+                if (i == j) {
+                    continue;
+                }
 
-               if (isCac1&&isCac2)
-                   break;
-            }
-        }
+                if (points[i].x==points[j].x && points[i].y==points[j].y) {
+                    samePoint++;
+                    continue;
+                }
 
-        Iterator iterator1 = map.values().iterator();
-        Iterator iterator2 = map2.values().iterator();
-        int temp = 0;
-        while (iterator1.hasNext()) {
-            temp = Integer.parseInt(iterator1.next().toString());
-            if (temp > result) {
-                result = temp;
+                double k = (points[j].x - points[i].x) == 0?Integer.MAX_VALUE:((points[j].y - points[i].y)/(1.0*(points[j].x - points[i].x)));
+                if (points[j].y == points[i].y)
+                    k = 0.0;
+                if (map.get(k) == null) {
+                    map.put(k, 2);
+                } else {
+                    int num = map.get(k);
+                    map.remove(k);
+                    map.put(k, num+1);
+                }
             }
-        }
-        while (iterator2.hasNext()) {
-            temp = Integer.parseInt(iterator2.next().toString());
-            if (temp > result) {
-                result = temp;
+
+            Iterator iterator = map.values().iterator();
+            if (!iterator.hasNext()) {
+                result = samePoint+1;
+                continue;
             }
+
+            while (iterator.hasNext()) {
+                int v = Integer.parseInt(iterator.next().toString());
+                if (v+samePoint > result)
+                    result = v+samePoint;
+            }
+
+
         }
 
         return result;
