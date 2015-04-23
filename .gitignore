@@ -1,1 +1,9 @@
 # Created by .gitignore support plugin (hsz.mobi)
+target
+.idea
+*.iml
+.DS_Store
+dependency-reduced-pom.xml
+.settings
+.classpath
+.project
